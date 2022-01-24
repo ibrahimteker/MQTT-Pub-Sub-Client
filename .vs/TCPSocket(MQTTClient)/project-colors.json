@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "0b3960d6-6dc8-4dc6-8a73-75bb220d8e3f": {
+      "ProjectGuid": "0b3960d6-6dc8-4dc6-8a73-75bb220d8e3f",
+      "DisplayName": "TCPSocket(MQTTClient)",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

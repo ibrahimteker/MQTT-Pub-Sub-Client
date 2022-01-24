@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "d42ER2JfRBdHrEpnlLFpIQ2ibCnvskFucoPUMhiNshXZfzKwO6hVUe9z4VfX1FrdsWv073cDPCXS5nyzrTqbYw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lenovo\\Desktop\\TCP(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient).csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lenovo\\.nuget\\packages\\rabbitmq.client\\6.2.2\\rabbitmq.client.6.2.2.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\system.threading.channels\\4.7.1\\system.threading.channels.4.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}
