@@ -105,6 +105,40 @@ namespace TCPSocket_MQTTClient_
             }
         }
 
+        private void MQTTSub2_Button_Click(object sender, EventArgs e)
+        {
+            int i, k;
+            MQTT_buffer[0] = 0x82; // control field
+            MQTT_buffer[1] = (byte)(5 + Topic2TextBox.Text.Length);
+            try
+            {
+                MQTT_buffer[2] = (byte)((Convert.ToInt16(Sub2IDTextBox.Text) >> 8) & 0xFF);
+                MQTT_buffer[3] = (byte)(Convert.ToInt16(Sub2IDTextBox.Text) & 0xFF);
+            }
+            catch (Exception ex)
+            {
+                MQTT_buffer[2] = 0x00;
+                MQTT_buffer[3] = 0x01;
+            }
+            MQTT_buffer[4] = (byte)((Convert.ToInt16(Topic2TextBox.Text.Length) >> 8) & 0xFF);
+            MQTT_buffer[5] = (byte)(Convert.ToInt16(Topic2TextBox.Text.Length) & 0xFF);
+            k = 6;
+            for (i = 0; i < Topic2TextBox.Text.Length; i++) // Topic name
+                MQTT_buffer[k + i] = Convert.ToByte(Topic2TextBox.Text[i]);
+            k = k + i;
+            MQTT_buffer[k++] = 0x01; // Request QOS
+            MQTT_size = k;
+
+            try
+            {
+                mqtt_stream.Write(MQTT_buffer, 0, MQTT_size);
+            }
+            catch
+            {
+                MessageBox.Show("TCP socket closed!");
+            }
+        }
+
         private void MQTTPublish_Button_Click(object sender, EventArgs e)
         {
             int i, k;
@@ -135,6 +169,17 @@ namespace TCPSocket_MQTTClient_
             }
         }
 
+        private void TextLog_TextChanged(object sender, EventArgs e)
+        {
+            TextLog.SelectionStart = TextLog.Text.Length;
+            TextLog.ScrollToCaret();
+        }
+
+        private void TextClearButton_Click(object sender, EventArgs e)
+        {
+            TextLog.Clear();
+        }
+
         private void CheckTimer_Tick(object sender, EventArgs e)
         {
             if (tcp_started)
@@ -157,8 +202,8 @@ namespace TCPSocket_MQTTClient_
                     MQTT_buffer[7] = (byte)'T';
                     MQTT_buffer[8] = 0x04; // protocol level
                     MQTT_buffer[9] = 0xC2; // connect flags
-                    MQTT_buffer[10] = 0x00; // keep alive time MSB
-                    MQTT_buffer[11] = 0x0A; // keep alive time LSB
+                    MQTT_buffer[10] = 0x0E; // keep alive time MSB
+                    MQTT_buffer[11] = 0x10; // keep alive time LSB (60 minutes)
 
                     k = 12;
                     // MQTT client ID
@@ -204,11 +249,26 @@ namespace TCPSocket_MQTTClient_
                         if (tcp_client.Available > 0 && tcp_client.Connected )
                         {
                             String responseData = String.Empty;
+                            String responseLabel = String.Empty;
                             Int32 bytes;
-                            bytes = 0;
-                            bytes = mqtt_stream.Read(stream_data, 0, tcp_client.Available);
-                            responseData = System.Text.Encoding.ASCII.GetString(stream_data, 0, bytes);
-                            TextLog.Text += "Received: {0}" + responseData + "\n";
+                            bytes = tcp_client.Available;
+                            mqtt_stream.Read(stream_data, 0, tcp_client.Available);
+                            int i;
+                            if (bytes >= 18)
+                            {
+                                for (i = 0; i < Convert.ToInt32(stream_data[3]); i++)
+                                    responseLabel += (Convert.ToString(Convert.ToChar(stream_data[4 + i])));
+
+                                for (i = 0; i < 5; i++)
+                                    responseData+=(Convert.ToString(Convert.ToChar(stream_data[13 + i])));
+
+                                if (responseLabel == TopicTextBox.Text) Sub1ReceivedTextBox.Text = responseData;
+                                if (responseLabel == Topic2TextBox.Text) Sub2ReceivedTextBox.Text = responseData;
+
+                            }
+                                
+                            //responseData = System.Text.Encoding.ASCII.GetString(stream_data, 0, bytes);
+                            TextLog.Text += "Received:" + responseLabel + ":" + responseData + "\n";
                         }
                     }
                     catch (Exception ex)

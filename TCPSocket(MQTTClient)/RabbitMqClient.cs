@@ -38,36 +38,53 @@ namespace TCPSocket_MQTTClient_
 
         private void btnSubscribe_Click(object sender, EventArgs e)
         {
-            subscribeChannel.QueueDeclare(queue: "aerotive",
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
+            //subscribeChannel.QueueDeclare(queue: "aerotive",
+            //                     durable: false,
+            //                     exclusive: false,
+            //                     autoDelete: false,
+            //                     arguments: null);
 
             var consumer = new EventingBasicConsumer(subscribeChannel);
             consumer.Received += onMessageReceived;
-            subscribeChannel.BasicConsume(queue: "aerotive",
+            subscribeChannel.BasicConsume(queue: "level",
                                  autoAck: true,
                                  consumer: consumer);
+
+            //var consumer2 = new EventingBasicConsumer(subscribeChannel);
+            //consumer2.Received += onMessageReceived;
+            //subscribeChannel.BasicConsume(queue: "state",
+            //                     autoAck: true,
+            //                     consumer: consumer);
+
         }
 
         private void onMessageReceived(object? model, BasicDeliverEventArgs ea)
         {
             var body = ea.Body.ToArray();
-            var message = Encoding.UTF8.GetString(body);
-            this.Invoke(() => txtSubscription.Text += DateTime.Now.ToString("dd-MM-yyyy hh:mm:ssss") + " : " + message + " (received)" + Environment.NewLine);
+            int i;
+            string response = String.Empty;
+            try
+            {
+                for (i = 0; i < 5; i++)
+                    response += Convert.ToString(Convert.ToChar(body[i + 2]));
+                this.Invoke(() => txtSubscription.Text += response + ";\n");
+                this.Invoke(() => txtSubscription.SelectionStart = txtSubscription.Text.Length);
+                this.Invoke(() => txtSubscription.ScrollToCaret());
+            }
+            catch (Exception)
+            { }
         }
 
         private void MQTTPublish_Button_Click(object sender, EventArgs e)
         {
             var message = Encoding.UTF8.GetBytes(txtMessage.Text);
-            publishChannel.QueueDeclare(queue: "aerotive",
-                                durable: false,
-                                exclusive: false,
-                                autoDelete: false,
-                                arguments: null);
+            //publishChannel.QueueDeclare(queue: "state",
+            //                    durable: false,
+            //                    exclusive: false,
+            //                    autoDelete: false,
+            //                    arguments: null);
             publishChannel.BasicPublish(exchange: "",
-                                 routingKey: "aerotive",
+                                 routingKey: "state",
                                  basicProperties: null,
                                  body: message);
             txtPublish.Text += DateTime.Now.ToString("dd-MM-yyyy hh:mm:ssss") + " : " + txtMessage.Text + " (sent)" + Environment.NewLine;
