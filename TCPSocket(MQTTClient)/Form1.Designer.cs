@@ -159,6 +159,7 @@
             // Key_TextBox
             // 
             this.Key_TextBox.Location = new System.Drawing.Point(67, 20);
+            this.Key_TextBox.MaxLength = 24;
             this.Key_TextBox.Name = "Key_TextBox";
             this.Key_TextBox.Size = new System.Drawing.Size(57, 23);
             this.Key_TextBox.TabIndex = 11;
@@ -275,7 +276,7 @@
             // TopicTextBox
             // 
             this.TopicTextBox.Location = new System.Drawing.Point(183, 21);
-            this.TopicTextBox.MaxLength = 8;
+            this.TopicTextBox.MaxLength = 24;
             this.TopicTextBox.Name = "TopicTextBox";
             this.TopicTextBox.Size = new System.Drawing.Size(62, 23);
             this.TopicTextBox.TabIndex = 24;
@@ -294,7 +295,7 @@
             // Topic2TextBox
             // 
             this.Topic2TextBox.Location = new System.Drawing.Point(183, 50);
-            this.Topic2TextBox.MaxLength = 8;
+            this.Topic2TextBox.MaxLength = 24;
             this.Topic2TextBox.Name = "Topic2TextBox";
             this.Topic2TextBox.Size = new System.Drawing.Size(62, 23);
             this.Topic2TextBox.TabIndex = 30;
