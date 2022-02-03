@@ -254,13 +254,14 @@ namespace TCPSocket_MQTTClient_
                             bytes = tcp_client.Available;
                             mqtt_stream.Read(stream_data, 0, tcp_client.Available);
                             int i;
-                            if (bytes >= 18)
+                            if (bytes >= 0 && stream_data[0] == 0x30)
                             {
-                                for (i = 0; i < Convert.ToInt32(stream_data[3]); i++)
+                                int key_length = Convert.ToInt32(stream_data[3]);
+                                for (i = 0; i < key_length; i++)
                                     responseLabel += (Convert.ToString(Convert.ToChar(stream_data[4 + i])));
 
                                 for (i = 0; i < 5; i++)
-                                    responseData+=(Convert.ToString(Convert.ToChar(stream_data[13 + i])));
+                                    responseData+=(Convert.ToString(Convert.ToChar(stream_data[key_length + 6 + i])));
 
                                 if (responseLabel == TopicTextBox.Text) Sub1ReceivedTextBox.Text = responseData;
                                 if (responseLabel == Topic2TextBox.Text) Sub2ReceivedTextBox.Text = responseData;

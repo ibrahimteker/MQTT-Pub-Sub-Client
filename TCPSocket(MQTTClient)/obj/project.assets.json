@@ -116,11 +116,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lenovo\\Desktop\\TCP(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient).csproj",
+      "projectUniqueName": "D:\\Aktif\\GaniIOT\\TCP(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient).csproj",
       "projectName": "TCPSocket(MQTTClient)",
-      "projectPath": "C:\\Users\\lenovo\\Desktop\\TCP(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient).csproj",
+      "projectPath": "D:\\Aktif\\GaniIOT\\TCP(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient).csproj",
       "packagesPath": "C:\\Users\\lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lenovo\\Desktop\\TCP(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient)\\obj\\",
+      "outputPath": "D:\\Aktif\\GaniIOT\\TCP(MQTTClient)\\TCPSocket(MQTTClient)\\TCPSocket(MQTTClient)\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
